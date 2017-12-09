@@ -1,7 +1,7 @@
-
 package bookmarkmodels;
 
 public class Podcast {
+
     private String name;
     private String author;
     private String title;
@@ -22,6 +22,7 @@ public class Podcast {
         this.title = title;
         this.url = url;
     }
+
     public Podcast(String name, String author, String title) {
         this.name = name;
         this.author = author;
@@ -75,16 +76,16 @@ public class Podcast {
     public String toString() {
         return "Podcast: " + "name: " + name + ", title: " + title + ", author: " + author + ", url: " + url + ", " + isChecked();
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (!o.getClass().equals(Podcast.class)) {
             return false;
         }
-        
+
         Podcast comp = (Podcast) o;
-        return  comp.getName().equals(this.name)
-        		&& comp.getAuthor().equals(this.author)
+        return comp.getName().equals(this.name)
+                && comp.getAuthor().equals(this.author)
                 && comp.getUrl().equals(this.url)
                 && comp.getTitle().equals(this.title);
     }

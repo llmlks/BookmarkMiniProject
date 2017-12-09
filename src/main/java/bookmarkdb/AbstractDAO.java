@@ -17,8 +17,8 @@ public interface AbstractDAO<T, K> {
     void update(T t, T s) throws SQLException;
 
     boolean delete(T t) throws SQLException;
-    
+
     List<T> findAllWithKeyword(String s) throws SQLException;
-    
+
     void marksAsChecked(T t);
 }

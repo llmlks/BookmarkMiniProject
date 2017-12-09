@@ -17,7 +17,6 @@ import bookmarkmodels.Video;
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 public class UI implements Runnable {
 
@@ -48,21 +47,21 @@ public class UI implements Runnable {
 
         while (true) {
             System.out.println("\nTo list all your bookmarks type \"browse\".\n"
-            		+ "To add a book type \"add book\".\n"
-                        + "To edit a book type \"edit book\".\n"
-            		+ "To delete a book type \"delete book\".\n"
-                        + "To mark book as read \"mark read\".\n"
-            		+ "To add a podcast type \"add podcast\".\n"
-                        + "To edit a podcast type \"edit podcast\".\n"
-            		+ "To delete a podcast type \"delete podcast\".\n"
-                        + "To mark podcast as listened \"mark listened\".\n"
-                        + "To add a video type \"add video\".\n"
-                        + "To edit a video type \"edit video\".\n"
-            		+ "To delete a video type \"delete video\".\n"
-                        + "To open a video type \"open video\".\n"
-                        + "To mark video as watched \"mark watched\".\n"
-            		+ "To quit the program type \"quit\".\n\n"
-            		+ "What to do?\n");
+                    + "To add a book type \"add book\".\n"
+                    + "To edit a book type \"edit book\".\n"
+                    + "To delete a book type \"delete book\".\n"
+                    + "To mark book as read \"mark read\".\n"
+                    + "To add a podcast type \"add podcast\".\n"
+                    + "To edit a podcast type \"edit podcast\".\n"
+                    + "To delete a podcast type \"delete podcast\".\n"
+                    + "To mark podcast as listened \"mark listened\".\n"
+                    + "To add a video type \"add video\".\n"
+                    + "To edit a video type \"edit video\".\n"
+                    + "To delete a video type \"delete video\".\n"
+                    + "To open a video type \"open video\".\n"
+                    + "To mark video as watched \"mark watched\".\n"
+                    + "To quit the program type \"quit\".\n\n"
+                    + "What to do?\n");
 
             String command;
             try {
@@ -70,40 +69,40 @@ public class UI implements Runnable {
                 if (command.equals("quit")) {
                     break;
                 } else if (command.equals("browse")) {
-                	commandBrowse();
+                    commandBrowse();
                 } else if (command.equals("add book")) {
-                	commandAddBook();
+                    commandAddBook();
                 } else if (command.equals("edit book")) {
-                	commandEditBook();
+                    commandEditBook();
                 } else if (command.equals("delete book")) {
-                	commandDeleteBook();
+                    commandDeleteBook();
                 } else if (command.equals("add podcast")) {
-                	commandAddPodcast();
+                    commandAddPodcast();
                 } else if (command.equals("mark read")) {
-                        commandMarkAsRead();
+                    commandMarkAsRead();
                 } else if (command.equals("edit podcast")) {
-                	commandEditPodcast();
+                    commandEditPodcast();
                 } else if (command.equals("delete podcast")) {
-                	commandDeletePodcast();
+                    commandDeletePodcast();
                 } else if (command.equals("mark listened")) {
-                        commandMarkAsListened();
+                    commandMarkAsListened();
                 } else if (command.equals("add video")) {
-                	commandAddVideo();
+                    commandAddVideo();
                 } else if (command.equals("edit video")) {
-                	commandEditVideo();
+                    commandEditVideo();
                 } else if (command.equals("delete video")) {
-                	commandDeleteVideo();
+                    commandDeleteVideo();
                 } else if (command.equals("open video")) {
-                        commandOpenVideoURL();
+                    commandOpenVideoURL();
                 } else if (command.equals("mark watched")) {
-                        commandMarkAsWatched();
+                    commandMarkAsWatched();
                 }
             } catch (IOException ex) {
                 Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
+
     private void commandBrowse() throws IOException {
         browseBooks();
         browsePodcasts();
@@ -195,7 +194,7 @@ public class UI implements Runnable {
         Book toEdit = books.get(index - 1);
         editBook(toEdit);
     }
-    
+
     private void editBook(Book book) throws IOException {
         System.out.println("Enter new title (leave empty if no need to edit):");
         String title = br.readLine();
@@ -230,8 +229,7 @@ public class UI implements Runnable {
         }
 
         Book toDelete = books.get(index - 1);
-        
-        
+
         try {
             if (bookDAO.delete(toDelete)) {
                 System.out.println("\nBook deleted!");
@@ -278,7 +276,7 @@ public class UI implements Runnable {
         } catch (SQLException exe) {
             Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, exe);
         }
-        
+
     }
 
     private void commandEditPodcast() throws IOException {
@@ -322,7 +320,7 @@ public class UI implements Runnable {
             Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void commandDeletePodcast() throws IOException {
         List<Podcast> podcasts = browsePodcasts();
         System.out.println("\nWhich podcast do you want to delete?"
@@ -334,8 +332,7 @@ public class UI implements Runnable {
         }
 
         Podcast toDelete = podcasts.get(index - 1);
-        
-        
+
         try {
             if (podcastDAO.delete(toDelete)) {
                 System.out.println("\nPodcast deleted!");
@@ -346,7 +343,7 @@ public class UI implements Runnable {
             Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void commandOpenVideoURL() {
         System.out.println("");
         try {
@@ -419,7 +416,7 @@ public class UI implements Runnable {
         } catch (SQLException exe) {
             Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, exe);
         }
-        
+
     }
 
     private void commandEditVideo() throws IOException {
@@ -434,7 +431,7 @@ public class UI implements Runnable {
 
         Video toEdit = videos.get(index - 1);
         editVideo(toEdit);
-    }  
+    }
 
     private void editVideo(Video video) throws IOException {
         System.out.println("Enter new title (leave empty if no need to edit):");
@@ -452,7 +449,7 @@ public class UI implements Runnable {
         } catch (SQLException ex) {
             Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }  
+    }
 
     private void commandDeleteVideo() throws IOException {
         List<Video> videos = browseVideos();
@@ -465,8 +462,7 @@ public class UI implements Runnable {
         }
 
         Video toDelete = videos.get(index - 1);
-        
-        
+
         try {
             if (videoDAO.delete(toDelete)) {
                 System.out.println("\nVideo deleted!");
@@ -478,7 +474,7 @@ public class UI implements Runnable {
         }
     }
 
-    private void commandMarkAsRead() throws IOException{
+    private void commandMarkAsRead() throws IOException {
         List<Book> books = browseBooks();
         System.out.println("\nWhich book do you want to mark as read?"
                 + "\nPlease enter a row number or \"cancel\" to return to main menu: ");
@@ -492,7 +488,7 @@ public class UI implements Runnable {
         bookDAO.marksAsChecked(toMark);
     }
 
-    private void commandMarkAsWatched() throws IOException{
+    private void commandMarkAsWatched() throws IOException {
         List<Video> videos = browseVideos();
         System.out.println("\nWhich video do you want to mark as watched?"
                 + "\nPlease enter a row number or \"cancel\" to return to main menu: ");
@@ -506,7 +502,7 @@ public class UI implements Runnable {
         videoDAO.marksAsChecked(toMark);
     }
 
-    private void commandMarkAsListened() throws IOException{
+    private void commandMarkAsListened() throws IOException {
         List<Podcast> podcasts = browsePodcasts();
         System.out.println("\nWhich podcast do you want to mark as listened?"
                 + "\nPlease enter a row number or \"cancel\" to return to main menu: ");
