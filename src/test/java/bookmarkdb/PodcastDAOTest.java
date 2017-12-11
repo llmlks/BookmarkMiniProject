@@ -112,4 +112,14 @@ public class PodcastDAOTest {
 
         verify(database).query("SELECT * FROM Podcast WHERE checked = 0");
     }
+    
+    @Test
+    public void testMarkAsChecked() throws SQLException {
+        podDAO.markAsChecked(newPodcast);
+        
+        verify(database).update("UPDATE Podcast SET checked=1 "
+                    + "WHERE name=? "
+                    + "AND author=? "
+                    + "AND title=?", newPodcast.getName(), newPodcast.getAuthor(), newPodcast.getTitle());
+    }
 }

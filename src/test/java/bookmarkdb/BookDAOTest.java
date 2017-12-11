@@ -114,4 +114,14 @@ public class BookDAOTest {
 
         verify(database).query("SELECT * FROM Book WHERE checked = 0");
     }
+    
+    @Test
+    public void testMarkAsChecked() throws SQLException {
+        bookDAO.markAsChecked(newBook);
+        
+        verify(database).update("UPDATE Book SET checked=1 "
+                    + "WHERE author=? "
+                    + "AND title=?", newBook.getAuthor(), newBook.getTitle());
+    }
+ 
 }

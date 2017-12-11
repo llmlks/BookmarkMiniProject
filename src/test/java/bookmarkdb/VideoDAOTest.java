@@ -104,4 +104,12 @@ public class VideoDAOTest {
 
         verify(database).query("SELECT * FROM Video WHERE checked = 0");
     }
+    
+    @Test
+    public void testMarkAsChecked() throws SQLException {
+        videoDAO.markAsChecked(newVideo);
+        
+        verify(database).update("UPDATE Video SET checked=1 "
+                    + "WHERE URL=?", newVideo.getURL());
+    }
 }
