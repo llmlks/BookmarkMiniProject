@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import bookmarkmodels.Book;
+import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -33,7 +34,7 @@ public class BookDAOTest {
     public void setUp() throws Exception {
         database = mock(Database.class);
         bookDAO = new BookDAO(database);
-        results = new HashMap<String, List<String>>();
+        results = new HashMap<>();
 
         newBook = new Book("Title", "Author", "ISBN");
         results.put("title", Arrays.asList("Title"));
@@ -110,8 +111,13 @@ public class BookDAOTest {
 
     @Test
     public void testFindAllUnchecked() throws SQLException {
-        bookDAO.findAllUnchecked();
+        List<Book> books = new ArrayList<>();
+        books.add(newBook);
+        books.add(new Book("title", "author", "isbn", 1));
 
-        verify(database).query("SELECT * FROM Book WHERE checked = 0");
+        List<Book> unchecked = bookDAO.filterOnlyUnchecked(books);
+
+        assertTrue(unchecked.contains(newBook));
+        assertTrue(unchecked.size() == 1);
     }
 }

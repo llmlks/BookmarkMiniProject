@@ -15,6 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 import bookmarkmodels.Podcast;
+import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -108,8 +109,13 @@ public class PodcastDAOTest {
 
     @Test
     public void testFindAllUnchecked() throws SQLException {
-        podDAO.findAllUnchecked();
+        List<Podcast> podcasts = new ArrayList<>();
+        podcasts.add(newPodcast);
+        podcasts.add(new Podcast("name", "author", "title", "url", 1));
 
-        verify(database).query("SELECT * FROM Podcast WHERE checked = 0");
+        List<Podcast> unchecked = podDAO.filterOnlyUnchecked(podcasts);
+
+        assertTrue(unchecked.contains(newPodcast));
+        assertTrue(unchecked.size() == 1);
     }
 }

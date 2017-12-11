@@ -22,5 +22,5 @@ public interface AbstractDAO<T, K> {
 
     void marksAsChecked(T t);
 
-    List<T> findAllUnchecked() throws SQLException;
+    List<T> filterOnlyUnchecked(List<T> t);
 }
