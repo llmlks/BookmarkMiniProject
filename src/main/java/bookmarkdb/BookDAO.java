@@ -158,8 +158,18 @@ public class BookDAO implements AbstractDAO<Book, Integer> {
     }
 
     @Override
-    public void marksAsChecked(Book t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void markAsChecked(Book b) throws SQLException {
+        Book book = findOne(b);
+        if (book.getAuthor() != null) {
+            String query = "UPDATE Book SET checked=1 "
+                    + "WHERE author=? "
+                    + "AND title=?";
+            database.update(
+                    query,
+                    book.getAuthor(),
+                    book.getTitle()
+            );
+        }
     }
 
     @Override

@@ -139,8 +139,16 @@ public class VideoDAO implements AbstractDAO<Video, Integer> {
     }
 
     @Override
-    public void marksAsChecked(Video t) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void markAsChecked(Video v) throws SQLException {
+        Video video = findOne(v);
+        if (video.getURL() != null) {
+            String query = "UPDATE Video SET checked=1 "
+                    + "WHERE URL=?";
+            database.update(
+                    query,
+                    video.getURL()
+            );
+        }
     }
 
     @Override

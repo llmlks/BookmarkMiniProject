@@ -504,7 +504,13 @@ public class UI implements Runnable {
         }
 
         Book toMark = books.get(index - 1);
-        bookDAO.marksAsChecked(toMark);
+        try {
+            bookDAO.markAsChecked(toMark);
+            System.out.println("\nBook marked as read!");
+        } catch (SQLException ex) {
+            Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
     }
 
     private void commandMarkAsWatched() throws IOException {
@@ -518,7 +524,12 @@ public class UI implements Runnable {
         }
 
         Video toMark = videos.get(index - 1);
-        videoDAO.marksAsChecked(toMark);
+        try {
+            videoDAO.markAsChecked(toMark);
+            System.out.println("\nVideo marked as watched!");
+        } catch (SQLException ex) {
+            Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void commandMarkAsListened() throws IOException {
@@ -532,7 +543,12 @@ public class UI implements Runnable {
         }
 
         Podcast toMark = podcasts.get(index - 1);
-        podcastDAO.marksAsChecked(toMark);
+        try {
+            podcastDAO.markAsChecked(toMark);
+            System.out.println("\nVideo marked as listened!");
+        } catch (SQLException ex) {
+            Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void commandSearchWithKeyword() throws IOException {
