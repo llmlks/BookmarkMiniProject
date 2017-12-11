@@ -101,7 +101,7 @@ public class VideoDAO implements AbstractDAO<Video, Integer> {
 
     @Override
     public List<Video> findAllWithKeyword(String s) throws SQLException {
-        String keyword = "\'%" + s.toUpperCase() + "\'%";
+        String keyword = "%" + s.toUpperCase() + "%";
         String query = ""
                 + "SELECT * FROM Video"
                 + " WHERE UPPER(url) LIKE ?"
@@ -117,12 +117,18 @@ public class VideoDAO implements AbstractDAO<Video, Integer> {
             Video video = new Video();
             for (String col : results.keySet()) {
                 String value = results.get(col).get(i);
-                if (col.equalsIgnoreCase("URL")) {
-                    video.setURL(value);
-                } else if (col.equalsIgnoreCase("title")) {
-                    video.setTitle(value);
-                } else if (col.equalsIgnoreCase("checked")) {
-                    video.setChecked(Integer.parseInt(value));
+                switch(col.toLowerCase()) {
+                    case "title":
+                        video.setTitle(value);
+                        break;
+                    case "url":
+                        video.setURL(value);
+                        break;
+                    case "checked":
+                        video.setChecked(Integer.parseInt(value));
+                        break;
+                    default:
+                        break;
                 }
             }
             videos.add(video);
@@ -142,5 +148,13 @@ public class VideoDAO implements AbstractDAO<Video, Integer> {
                     video.getURL()
             );
         }
+    }
+
+    @Override
+    public List<Video> findAllUnchecked() throws SQLException {
+        String query = "SELECT * FROM Video WHERE checked = 0";
+        Map<String, List<String>> results = database.query(query);
+
+        return getVideoList(results);
     }
 }
