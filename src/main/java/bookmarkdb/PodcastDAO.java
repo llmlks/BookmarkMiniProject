@@ -172,7 +172,19 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
     }
 
     @Override
-    public void marksAsChecked(Podcast t) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void markAsChecked(Podcast p) throws SQLException {
+        Podcast podcast = findOne(p);
+        if (podcast.getAuthor() != null) {
+            String query = "UPDATE Podcast SET checked=1 "
+                    + "WHERE name=? "
+                    + "AND author=? "
+                    + "AND title=?";
+            database.update(
+                    query,
+                    podcast.getName(),
+                    podcast.getAuthor(),
+                    podcast.getTitle()
+            );
+        }
     }
 }
