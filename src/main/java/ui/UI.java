@@ -401,8 +401,7 @@ public class UI implements Runnable {
     private void commandAddVideo() throws IOException {
         String url;
         String name;
-        System.out.println("");
-        System.out.println("Url:");
+        System.out.println("\nUrl:");
         url = br.readLine();
         while (url.isEmpty()) {
             System.out.println("Url cannot be empty. Enter URL again:");
