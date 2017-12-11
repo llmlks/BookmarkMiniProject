@@ -135,11 +135,6 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
         return getPodcastList(results);
     }
 
-    @Override
-    public void marksAsChecked(Podcast t) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     private List<Podcast> getPodcastList(Map<String, List<String>> results) {
         List<Podcast> podcasts = new ArrayList<>();
         for (int i = 0; i < results.get("title").size(); i++) {
@@ -187,7 +182,9 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
                     podcast.getTitle()
             );
         }
-        
+    }
+    
+    @Override
     public List<Podcast> findAllUnchecked() throws SQLException {
         String query = "SELECT * FROM Podcast WHERE checked = 0";
         Map<String, List<String>> results = database.query(query);
