@@ -141,4 +141,12 @@ public class VideoDAO implements AbstractDAO<Video, Integer> {
     public void marksAsChecked(Video t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public List<Video> findAllUnchecked() throws SQLException {
+        String query = "SELECT * FROM Video WHERE checked = 0";
+        Map<String, List<String>> results = database.query(query);
+
+        return getVideoList(results);
+    }
 }

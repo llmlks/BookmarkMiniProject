@@ -107,4 +107,11 @@ public class BookDAOTest {
                 + " WHERE UPPER(title) LIKE ? OR UPPER(author) LIKE ? OR"
                 + " UPPER(ISBN) LIKE ?", keyword, keyword, keyword);
     }
+
+    @Test
+    public void testFindAllUnchecked() throws SQLException {
+        bookDAO.findAllUnchecked();
+
+        verify(database).query("SELECT * FROM Book WHERE checked = 0");
+    }
 }

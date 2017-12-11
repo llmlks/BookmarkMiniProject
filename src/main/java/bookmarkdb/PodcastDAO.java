@@ -171,4 +171,12 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
 
         return podcasts;
     }
+
+    @Override
+    public List<Podcast> findAllUnchecked() throws SQLException {
+        String query = "SELECT * FROM Podcast WHERE checked = 0";
+        Map<String, List<String>> results = database.query(query);
+
+        return getPodcastList(results);
+    }
 }

@@ -38,7 +38,7 @@ public class PodcastDAOTest {
         results.put("title", Arrays.asList("Title"));
         results.put("url", Arrays.asList("Url"));
 
-        when(database.query("SELECT * FROM Podcast")).thenReturn(results);
+        when(database.query(any(String.class))).thenReturn(results);
         when(database.query(any(String.class), any(String.class), any(String.class))).thenReturn(results);
         when(database.query(any(String.class), any(String.class), any(String.class),
                 any(String.class), any(String.class))).thenReturn(results);
@@ -104,5 +104,12 @@ public class PodcastDAOTest {
                 + " WHERE UPPER(author) LIKE ? OR UPPER(title) LIKE ? OR"
                 + " UPPER(name) LIKE ? OR UPPER(url) LIKE ?",
                 keyword, keyword, keyword, keyword);
+    }
+
+    @Test
+    public void testFindAllUnchecked() throws SQLException {
+        podDAO.findAllUnchecked();
+
+        verify(database).query("SELECT * FROM Podcast WHERE checked = 0");
     }
 }

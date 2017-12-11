@@ -97,4 +97,11 @@ public class VideoDAOTest {
         verify(database).query("SELECT * FROM Video WHERE UPPER(url) LIKE ? OR"
                 + " UPPER(title) LIKE ?", keyword, keyword);
     }
+
+    @Test
+    public void testFindAllUnchecked() throws SQLException {
+        videoDAO.findAllUnchecked();
+
+        verify(database).query("SELECT * FROM Video WHERE checked = 0");
+    }
 }

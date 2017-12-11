@@ -21,4 +21,6 @@ public interface AbstractDAO<T, K> {
     List<T> findAllWithKeyword(String s) throws SQLException;
 
     void marksAsChecked(T t);
+
+    List<T> findAllUnchecked() throws SQLException;
 }

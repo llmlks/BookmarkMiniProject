@@ -161,4 +161,11 @@ public class BookDAO implements AbstractDAO<Book, Integer> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<Book> findAllUnchecked() throws SQLException {
+        String query = "SELECT * FROM Book WHERE checked = 0";
+        Map<String, List<String>> results = database.query(query);
+
+        return getBookList(results);
+    }
 }
