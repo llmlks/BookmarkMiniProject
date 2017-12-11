@@ -96,6 +96,8 @@ public class UI implements Runnable {
                     commandOpenVideoURL();
                 } else if (command.equals("mark watched")) {
                     commandMarkAsWatched();
+                } else if (command.equals("search")) {
+                    commandSearchWithKeyword();
                 }
             } catch (IOException ex) {
                 Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,9 +112,15 @@ public class UI implements Runnable {
     }
 
     private List<Book> browseBooks() {
+        return browseBooks("");
+    }
+
+    private List<Book> browseBooks(String keyword) {
         System.out.println("");
         try {
-            List<Book> books = bookDAO.findAll();
+            List<Book> books = keyword.isEmpty() 
+                    ? bookDAO.findAll()
+                    : bookDAO.findAllWithKeyword(keyword);
             for (int i = 0; i < books.size(); i++) {
                 System.out.println((i + 1) + " " + books.get(i));
             }
@@ -124,9 +132,15 @@ public class UI implements Runnable {
     }
 
     private List<Podcast> browsePodcasts() {
+        return browsePodcasts("");
+    }
+
+    private List<Podcast> browsePodcasts(String keyword) {
         System.out.println("");
         try {
-            List<Podcast> podcasts = podcastDAO.findAll();
+            List<Podcast> podcasts = keyword.isEmpty()
+                    ? podcastDAO.findAll()
+                    : podcastDAO.findAllWithKeyword(keyword);
             for (int i = 0; i < podcasts.size(); i++) {
                 System.out.println((i + 1) + " " + podcasts.get(i));
             }
@@ -138,9 +152,15 @@ public class UI implements Runnable {
     }
 
     private List<Video> browseVideos() {
+        return browseVideos("");
+    }
+
+    private List<Video> browseVideos(String keyword) {
         System.out.println("");
         try {
-            List<Video> videos = videoDAO.findAll();
+            List<Video> videos = keyword.isEmpty()
+                    ? videoDAO.findAll()
+                    : videoDAO.findAllWithKeyword(keyword);
             for (int i = 0; i < videos.size(); i++) {
                 System.out.println((i + 1) + " " + videos.get(i));
             }
@@ -513,5 +533,14 @@ public class UI implements Runnable {
 
         Podcast toMark = podcasts.get(index - 1);
         podcastDAO.marksAsChecked(toMark);
+    }
+
+    private void commandSearchWithKeyword() throws IOException {
+        System.out.println("\nPlease enter a keyword: ");
+        String keyword = br.readLine();
+
+        browseBooks(keyword);
+        browsePodcasts(keyword);
+        browseVideos(keyword);
     }
 }
