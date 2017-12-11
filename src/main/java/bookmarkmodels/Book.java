@@ -4,6 +4,7 @@ package bookmarkmodels;
  * Class for representing bookmarks of type 'Book'.
  */
 public class Book {
+
     private String title;
     private String author;
     private String ISBN;
@@ -61,18 +62,18 @@ public class Book {
     public void setChecked(int checked) {
         this.checked = checked;
     }
-    
+
     @Override
     public String toString() {
         return "Book: " + "title: " + title + ", author: " + author + ", ISBN: " + ISBN + ", " + isChecked();
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (!o.getClass().equals(Book.class)) {
             return false;
         }
-        
+
         Book comp = (Book) o;
         return comp.getAuthor().equals(this.author)
                 && comp.getISBN().equals(this.ISBN)

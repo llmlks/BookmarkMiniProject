@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package bookmarkmodels;
 
@@ -8,9 +8,10 @@ package bookmarkmodels;
  *
  */
 public class Video {
-	private String URL;
-	private String title;
-        private int checked; 
+
+    private String URL;
+    private String title;
+    private int checked;
 
     public Video(String URL, String title, int checked) {
         this.URL = URL;
@@ -19,8 +20,8 @@ public class Video {
     }
 
     public Video(String URL, String title) {
-    	this.URL = URL;
-    	this.title = title;
+        this.URL = URL;
+        this.title = title;
     }
 
     public Video(String URL) {
@@ -56,15 +57,15 @@ public class Video {
 
     @Override
     public String toString() {
-        return "Video: "  + "URL: " + URL + ", title: " + title + ", " + isChecked();
+        return "Video: " + "URL: " + URL + ", title: " + title + ", " + isChecked();
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (!o.getClass().equals(Video.class)) {
             return false;
         }
-        
+
         Video comp = (Video) o;
         return comp.getURL().equals(this.URL);
     }
