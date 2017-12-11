@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import bookmarkmodels.Video;
+import java.util.stream.Collectors;
 
 /**
  * @author Admin
@@ -151,10 +152,8 @@ public class VideoDAO implements AbstractDAO<Video, Integer> {
     }
 
     @Override
-    public List<Video> findAllUnchecked() throws SQLException {
-        String query = "SELECT * FROM Video WHERE checked = 0";
-        Map<String, List<String>> results = database.query(query);
-
-        return getVideoList(results);
+    public List<Video> filterOnlyUnchecked(List<Video> videos) {
+        return videos.stream().filter((video) -> (video.getChecked() == 0))
+                .collect(Collectors.toList());
     }
 }

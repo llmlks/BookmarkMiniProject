@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import bookmarkmodels.Book;
+import java.util.stream.Collectors;
 
 /**
  * Class for accessing database table for bookmarks of type 'Book'.
@@ -172,10 +173,8 @@ public class BookDAO implements AbstractDAO<Book, Integer> {
     }
 
     @Override
-    public List<Book> findAllUnchecked() throws SQLException {
-        String query = "SELECT * FROM Book WHERE checked = 0";
-        Map<String, List<String>> results = database.query(query);
-
-        return getBookList(results);
+    public List<Book> filterOnlyUnchecked(List<Book> books) {
+        return books.stream().filter((book) -> (book.getChecked() == 0))
+                .collect(Collectors.toList());
     }
 }

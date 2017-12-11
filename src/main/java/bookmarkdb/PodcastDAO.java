@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import bookmarkmodels.Podcast;
+import java.util.stream.Collectors;
 
 /**
  * Class for accessing database table for bookmarks of type 'Podcast'.
@@ -168,6 +169,12 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
     }
 
     @Override
+    public List<Podcast> filterOnlyUnchecked(List<Podcast> podcasts) {
+        return podcasts.stream().filter((podcast) -> (podcast.getChecked() == 0))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void markAsChecked(Podcast p) throws SQLException {
         Podcast podcast = findOne(p);
         if (podcast.getAuthor() != null) {
@@ -182,13 +189,5 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
                     podcast.getTitle()
             );
         }
-    }
-    
-    @Override
-    public List<Podcast> findAllUnchecked() throws SQLException {
-        String query = "SELECT * FROM Podcast WHERE checked = 0";
-        Map<String, List<String>> results = database.query(query);
-
-        return getPodcastList(results);
     }
 }

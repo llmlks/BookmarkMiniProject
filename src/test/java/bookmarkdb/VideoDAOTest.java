@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import bookmarkmodels.Video;
+import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -100,9 +101,14 @@ public class VideoDAOTest {
 
     @Test
     public void testFindAllUnchecked() throws SQLException {
-        videoDAO.findAllUnchecked();
+        List<Video> videos = new ArrayList<>();
+        videos.add(newVideo);
+        videos.add(new Video("url", "title", 1));
+        
+        List<Video> checkedVideos = videoDAO.filterOnlyUnchecked(videos);
 
-        verify(database).query("SELECT * FROM Video WHERE checked = 0");
+        assertTrue(checkedVideos.contains(newVideo));
+        assertTrue(checkedVideos.size() == 1);
     }
     
     @Test
