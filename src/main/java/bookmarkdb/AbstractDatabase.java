@@ -16,5 +16,5 @@ public interface AbstractDatabase {
     void setDebugMode(boolean d);
 
     int update(String updateQuery, Object... params) throws SQLException;
-    
+
 }

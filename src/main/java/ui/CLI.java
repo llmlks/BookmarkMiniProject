@@ -12,7 +12,6 @@ public class CLI {
     public static void main(String[] args) throws SQLException {
         Database database = new Database(new Connector("jdbc:sqlite:bookmarks.db"));
         database.init();
-        //database.setDebugMode(true);
 
         UI ui = new UI(database);
         ui.run();
