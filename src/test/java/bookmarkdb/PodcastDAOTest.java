@@ -30,7 +30,7 @@ public class PodcastDAOTest {
     public void setup() throws Exception {
         database = mock(Database.class);
         podDAO = new PodcastDAO(database);
-        results = new HashMap<String, List<String>>();
+        results = new HashMap<>();
 
         newPodcast = new Podcast("Name", "Author", "Title", "Url");
         results.put("name", Arrays.asList("Name"));
@@ -40,6 +40,8 @@ public class PodcastDAOTest {
 
         when(database.query("SELECT * FROM Podcast")).thenReturn(results);
         when(database.query(any(String.class), any(String.class), any(String.class))).thenReturn(results);
+        when(database.query(any(String.class), any(String.class), any(String.class),
+                any(String.class), any(String.class))).thenReturn(results);
     }
 
     @After
@@ -90,5 +92,17 @@ public class PodcastDAOTest {
                         newPodcast.getAuthor(), newPodcast.getTitle(), newPodcast.getName());
         
         assertTrue(deleted);
+    }
+
+    @Test
+    public void testFindAllWithKeyword() throws SQLException {
+        String s = "titl";
+        podDAO.findAllWithKeyword(s);
+        String keyword = "%" + s.toUpperCase() + "%";
+
+        verify(database).query("SELECT * FROM Podcast"
+                + " WHERE UPPER(author) LIKE ? OR UPPER(title) LIKE ? OR"
+                + " UPPER(name) LIKE ? OR UPPER(url) LIKE ?",
+                keyword, keyword, keyword, keyword);
     }
 }

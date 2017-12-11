@@ -85,14 +85,21 @@ public class BookDAO implements AbstractDAO<Book, Integer> {
             Book book = new Book();
             for (String col : results.keySet()) {
                 String value = results.get(col).get(i);
-                if (col.equalsIgnoreCase("title")) {
-                    book.setTitle(value);
-                } else if (col.equalsIgnoreCase("author")) {
-                    book.setAuthor(value);
-                } else if (col.equalsIgnoreCase("ISBN")) {
-                    book.setISBN(value);
-                } else if (col.equalsIgnoreCase("checked")) {
-                    book.setChecked(Integer.parseInt(value));
+                switch (col.toLowerCase()) {
+                    case "title":
+                        book.setTitle(value);
+                        break;
+                    case "author":
+                        book.setAuthor(value);
+                        break;
+                    case "isbn":
+                        book.setISBN(value);
+                        break;
+                    case "checked":
+                        book.setChecked(Integer.parseInt(value));
+                        break;
+                    default:
+                        break;
                 }
             }
             books.add(book);
@@ -131,7 +138,7 @@ public class BookDAO implements AbstractDAO<Book, Integer> {
 
     @Override
     public List<Book> findAllWithKeyword(String s) throws SQLException {
-        String keyword = "\'%" + s.toUpperCase() + "\'%";
+        String keyword = "%" + s.toUpperCase() + "%";
         String query = ""
                 + "SELECT * FROM Book"
                 + " WHERE"

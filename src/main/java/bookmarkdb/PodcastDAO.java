@@ -75,27 +75,9 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
 
     @Override
     public List<Podcast> findAll() throws SQLException {
-        List<Podcast> podcasts = new ArrayList<>();
         Map<String, List<String>> results = database.query("SELECT * FROM Podcast");
 
-        for (int i = 0; i < results.get("title").size(); i++) {
-            Podcast podcast = new Podcast();
-            for (String col : results.keySet()) {
-                if (col.equalsIgnoreCase("name")) {
-                    podcast.setName(results.get(col).get(i));
-                } else if (col.equalsIgnoreCase("author")) {
-                    podcast.setAuthor(results.get(col).get(i));
-                } else if (col.equalsIgnoreCase("title")) {
-                    podcast.setTitle(results.get(col).get(i));
-                } else if (col.equalsIgnoreCase("url")) {
-                    podcast.setUrl(results.get(col).get(i));
-                } else if (col.equalsIgnoreCase("checked")) {
-                    podcast.setChecked(Integer.parseInt(results.get(col).get(i)));
-                }
-            }
-            podcasts.add(podcast);
-        }
-        return podcasts;
+        return getPodcastList(results);
     }
 
     @Override
@@ -135,8 +117,7 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
 
     @Override
     public List<Podcast> findAllWithKeyword(String s) throws SQLException {
-        List<Podcast> podcasts = new ArrayList<>();
-        String keyword = "\'%" + s.toUpperCase() + "\'%";
+        String keyword = "%" + s.toUpperCase() + "%";
         String query = ""
                 + "SELECT *"
                 + " FROM Podcast"
@@ -151,28 +132,43 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
                 keyword
         );
 
-        for (int i = 0; i < results.get("title").size(); i++) {
-            Podcast podcast = new Podcast();
-            for (String col : results.keySet()) {
-                if (col.equalsIgnoreCase("name")) {
-                    podcast.setName(results.get(col).get(i));
-                } else if (col.equalsIgnoreCase("author")) {
-                    podcast.setAuthor(results.get(col).get(i));
-                } else if (col.equalsIgnoreCase("title")) {
-                    podcast.setTitle(results.get(col).get(i));
-                } else if (col.equalsIgnoreCase("url")) {
-                    podcast.setUrl(results.get(col).get(i));
-                } else if (col.equalsIgnoreCase("checked")) {
-                    podcast.setChecked(Integer.parseInt(results.get(col).get(i)));
-                }
-            }
-            podcasts.add(podcast);
-        }
-        return podcasts;
+        return getPodcastList(results);
     }
 
     @Override
     public void marksAsChecked(Podcast t) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    private List<Podcast> getPodcastList(Map<String, List<String>> results) {
+        List<Podcast> podcasts = new ArrayList<>();
+        for (int i = 0; i < results.get("title").size(); i++) {
+            Podcast podcast = new Podcast();
+            for (String col : results.keySet()) {
+                String value = results.get(col).get(i);
+                switch (col.toLowerCase()) {
+                    case "name":
+                        podcast.setName(value);
+                        break;
+                    case "author":
+                        podcast.setAuthor(value);
+                        break;
+                    case "title":
+                        podcast.setTitle(value);
+                        break;
+                    case "url":
+                        podcast.setUrl(value);
+                        break;
+                    case "checked":
+                        podcast.setChecked(Integer.parseInt(value));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            podcasts.add(podcast);
+        }
+
+        return podcasts;
     }
 }

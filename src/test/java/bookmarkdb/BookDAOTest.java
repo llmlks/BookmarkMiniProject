@@ -42,6 +42,8 @@ public class BookDAOTest {
 
         when(database.query(any(String.class))).thenReturn(results);
         when(database.query(any(String.class), any(String.class), any(String.class))).thenReturn(results);
+        when(database.query(any(String.class), any(String.class), any(String.class),
+                any(String.class))).thenReturn(results);
     }
 
     @After
@@ -93,5 +95,16 @@ public class BookDAOTest {
 
         verify(database).update("UPDATE Book SET title=?, author=?, ISBN=? WHERE author=? AND title=?",
                 modifiedBook.getTitle(), modifiedBook.getAuthor(), modifiedBook.getISBN(), newBook.getAuthor(), newBook.getTitle());
+    }
+
+    @Test
+    public void testFindAllWithKeyword() throws SQLException {
+        String s = "titl";
+        bookDAO.findAllWithKeyword(s);
+        String keyword = "%" + s.toUpperCase() + "%";
+
+        verify(database).query("SELECT * FROM Book"
+                + " WHERE UPPER(title) LIKE ? OR UPPER(author) LIKE ? OR"
+                + " UPPER(ISBN) LIKE ?", keyword, keyword, keyword);
     }
 }
