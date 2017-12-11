@@ -64,7 +64,7 @@ public class Book {
     
     @Override
     public String toString() {
-        return "Book: " + "title: " + title + ", author: " + author + ", ISBN: " + ISBN + ", " + isChecked();
+        return "Book: " + "title: " + title + ", author: " + author + ", ISBN: " + printOptionalField(ISBN) + ", " + isChecked();
     }
     
     @Override
@@ -93,5 +93,12 @@ public class Book {
             return "not read";
         }
         return "read";
+    }
+
+    private String printOptionalField(String text) {
+        if (text.isEmpty()) {
+            return "<empty>";
+        }
+        return text;
     }
 }

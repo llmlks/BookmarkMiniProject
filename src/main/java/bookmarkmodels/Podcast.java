@@ -73,7 +73,7 @@ public class Podcast {
 
     @Override
     public String toString() {
-        return "Podcast: " + "name: " + name + ", title: " + title + ", author: " + author + ", url: " + url + ", " + isChecked();
+        return "Podcast: " + "name: " + name + ", title: " + title + ", author: " + author + ", url: " + printOptionalField(url) + ", " + isChecked();
     }
     
     @Override
@@ -94,5 +94,12 @@ public class Podcast {
             return "not listened";
         }
         return "listened";
+    }
+
+    private String printOptionalField(String text) {
+        if (text.isEmpty()) {
+            return "<empty>";
+        }
+        return text;
     }
 }

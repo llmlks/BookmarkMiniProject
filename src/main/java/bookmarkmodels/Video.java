@@ -56,7 +56,7 @@ public class Video {
 
     @Override
     public String toString() {
-        return "Video: "  + "URL: " + URL + ", title: " + title + ", " + isChecked();
+        return "Video: "  + "URL: " + URL + ", title: " + printOptionalField(title) + ", " + isChecked();
     }
     
     @Override
@@ -82,5 +82,12 @@ public class Video {
             return "not watched";
         }
         return "watched";
+    }
+
+    private String printOptionalField(String text) {
+        if (text.isEmpty()) {
+            return "<empty>";
+        }
+        return text;
     }
 }
