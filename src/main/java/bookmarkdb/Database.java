@@ -180,6 +180,13 @@ public class Database implements AbstractDatabase {
                 + " podcast INT(3) NOT NULL,"
                 + " FOREIGN KEY (tag) REFERENCES Tag,"
                 + " FOREIGN KEY (podcast) REFERENCES Podcast)");
+        
+        list.add("" 
+                + "CREATE TABLE IF NOT EXISTS VideoTag"
+                + "(tag INT(3) NOT NULL,"
+                + "video INT(3) NOT NULL,"
+                + "FOREIGN KEY (tag) REFERENCES Tag,"
+                + "FOREIGN KEY (video) REFERENCES Video)");
 
         return list;
     }

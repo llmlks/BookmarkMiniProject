@@ -160,6 +160,14 @@ public class VideoDAO implements AbstractDAO<Video, Integer> {
 
     @Override
     public int getRowId(Video video) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    	Map<String, List<String>> results = database.query("SELECT rowid FROM Video where URL=?",
+    			video.getURL());
+    	for (String col : results.keySet()) {
+            if (col.equals("rowid")) {
+            	return Integer.parseInt(results.get(col).get(0));
+            }
+    	}
+		return -1;
+	}
+
 }
