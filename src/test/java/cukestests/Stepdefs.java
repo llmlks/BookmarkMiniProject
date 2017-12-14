@@ -501,6 +501,32 @@ public class Stepdefs {
 
         assertTrue(podToTest.equals(podcastDao.findOne(podToTest)));
     }
+    
+    @Then("^user is notified that book is marked as read$")
+    public void user_is_notified_that_book_is_marked_as_read() throws Throwable {
+        runApplication();
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Book marked as read!"));
+    }
+    
+    @Then("^user is notified that podcast is marked as listened$")
+    public void user_is_notified_that_podcast_is_marked_as_listened() throws Throwable {
+        runApplication();
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Podcast marked as listened!"));
+    }
+
+    @Then("^user is notified that video is marked as watched$")
+    public void user_is_notified_that_video_is_marked_as_watched() throws Throwable {
+        runApplication();
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Video marked as watched!"));
+    }
+
+
 
     /**
      * Adds a line to the input, which simulates same behaviour as typing text

@@ -545,7 +545,7 @@ public class UI implements Runnable {
         Podcast toMark = podcasts.get(index - 1);
         try {
             podcastDAO.markAsChecked(toMark);
-            System.out.println("\nVideo marked as listened!");
+            System.out.println("\nPodcast marked as listened!");
         } catch (SQLException ex) {
             Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
         }
