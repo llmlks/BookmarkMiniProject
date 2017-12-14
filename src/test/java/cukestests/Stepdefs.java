@@ -124,6 +124,12 @@ public class Stepdefs {
         addInputLine(name);
     }
     
+    @Given("^book from row \"([^\"]*)\" has been marked as read$")
+    public void book_has_been_marked_as_read(String row) throws Throwable {
+        addInputLine("mark read");
+        addInputLine(row);
+    }
+    
     @When("^tag \"([^\"]*)\" is entered$")
     public void tag_is_entered(String tag) throws Throwable {
         addInputLine(tag);
@@ -348,6 +354,14 @@ public class Stepdefs {
 
         String output = outputStream.toString();
         assertTrue(output.contains("URL cannot be empty"));
+    }
+    
+    @Then("^book is printed only once$")
+    public void book_printed_only_once() throws Throwable {
+        runApplication();
+        
+        String output = outputStream.toString();
+        assertTrue(output.indexOf("Book:") == output.lastIndexOf("Book:"));
     }
     
     @Then("^empty list of books is printed$")

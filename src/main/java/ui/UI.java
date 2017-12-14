@@ -31,6 +31,7 @@ public class UI implements Runnable {
         while (true) {
             System.out.println("\nTo list all your bookmarks enter \"browse\".\n"
                     + "To search all your bookmarks enter \"search\"\n"
+                    + "To search or browse only unread/not listened/not watched bookmarks type \"-u\" after search or browse command.\n"
                     + "To add a bookmark enter \"add <type>\".\n"
                     + "To edit a bookmark enter \"edit <type>\".\n"
                     + "To delete a bookmak enter \"delete <type>\".\n"
