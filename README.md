@@ -27,4 +27,4 @@ Yleisesti:
 2. Navigoi komentorivillä kansioon, jossa ladattu tiedosto sijaitsee
 3. Aja sovellus komennolla "java -jar BookmarkMiniProject-all.jar"
 
-
+## [Loppuraportti](https://docs.google.com/document/d/1z-xJbTVJ-snqdfrTNpOlRk2R9r5kOznCxk87MR9pQMs/edit?usp=sharing)
