@@ -38,9 +38,9 @@ public class CommandContainer {
         commands.put("delete podcast", new DeletePodcastCommand(database, br));
         commands.put("delete video", new DeleteVideoCommand(database, br));
 
-        commands.put("mark read", new MarkReadCommand(database, br));
-        commands.put("mark listened", new MarkListenedCommand(database, br));
-        commands.put("mark watched", new MarkWatchedCommand(database, br));
+        commands.put("mark book checked", new MarkReadCommand(database, br));
+        commands.put("mark podcast checked", new MarkListenedCommand(database, br));
+        commands.put("mark video checked", new MarkWatchedCommand(database, br));
 
         commands.put("open video", new OpenVideoCommand(database, br, desktop));
     }
