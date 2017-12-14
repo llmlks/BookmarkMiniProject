@@ -35,12 +35,32 @@ public abstract class Command {
         this.bookTagDAO = new BookTagDAO(database, bookDAO, tagDAO);
     }
 
+    /**
+     * Runs the command.
+     */
     public abstract void run();
 
+    /**
+     * Returns a list of all bookmarks of type book in the database by calling
+     * {@link #browseBooks(java.lang.String, boolean)} with parameters "" and
+     * {@code false}.
+     * 
+     * @return List of books
+     */
     protected List<Book> browseBooks() {
         return browseBooks("", false);
     }
 
+    /**
+     * Searches all bookmarks of type book in the database and returns a list of
+     * books based on the given parameters.
+     * 
+     * @param keyword Keyword based on which the books in the database are 
+     * searched
+     * @param onlyUnread {@code true} if the results should be filtered to only
+     * include those books that haven't been marked read
+     * @return List of books
+     */
     protected List<Book> browseBooks(String keyword, boolean onlyUnread) {
         System.out.println("");
         try {
@@ -64,10 +84,27 @@ public abstract class Command {
         return null;
     }
 
+    /**
+     * Returns a list of all bookmarks of type podcast in the database by calling
+     * {@link #browsePodcasts(java.lang.String, boolean)} with parameters "" and
+     * {@code false}.
+     * 
+     * @return List of podcasts
+     */
     protected List<Podcast> browsePodcasts() {
         return browsePodcasts("", false);
     }
 
+    /**
+     * Searches all bookmarks of type podcast in the database and returns a list
+     * of podcasts based on the given parameters.
+     * 
+     * @param keyword Keyword based on which the podcasts in the database are 
+     * searched
+     * @param onlyUnread {@code true} if the results should be filtered to only
+     * include those podcasts that haven't been marked listened
+     * @return List of podcasts
+     */
     protected List<Podcast> browsePodcasts(String keyword, boolean onlyUnread) {
         System.out.println("");
         try {
@@ -89,10 +126,27 @@ public abstract class Command {
         return null;
     }
 
+    /**
+     * Returns a list of all bookmarks of type video in the database by calling
+     * {@link #browseVideos(java.lang.String, boolean)} with parameters "" and
+     * {@code false}.
+     * 
+     * @return List of videos
+     */
     protected List<Video> browseVideos() {
         return browseVideos("", false);
     }
 
+    /**
+     * Searches all bookmarks of type video in the database and returns a list 
+     * of videos based on the given parameters.
+     * 
+     * @param keyword Keyword based on which the videos in the database are 
+     * searched
+     * @param onlyUnread {@code true} if the results should be filtered to only
+     * include those videos that haven't been marked read
+     * @return List of videos
+     */
     protected List<Video> browseVideos(String keyword, boolean onlyUnread) {
         System.out.println("");
         try {
@@ -114,6 +168,14 @@ public abstract class Command {
         return null;
     }
 
+    /**
+     * Returns a number formatted from user input, or keeps prompting for it 
+     * until user either inputs "cancel" or a valid number, smaller than or 
+     * equal to the given maximum.
+     * 
+     * @param maxRowNumber Number of rows from which to choose.
+     * @return row number inputted by user, or -1 if user entered "cancel"
+     */
     protected int getRowNumber(int maxRowNumber) {
         boolean noRowNumber = true;
         int index = -1;
@@ -138,6 +200,15 @@ public abstract class Command {
         return index;
     }
 
+    /**
+     * Prompts the user for an input with the given {@link prompt}, and returns
+     * the entered value, or (if entered value is empty) re-prompts the user 
+     * until a non-empty value is entered.
+     * 
+     * @param prompt First prompt as String
+     * @param rePrompt Re-prompt as String
+     * @return Entered non-empty value
+     */
     protected String getUserInputNotEmpty(String prompt, String rePrompt) {
         String input = "";
         try {
@@ -153,6 +224,13 @@ public abstract class Command {
         return input;
     }
 
+    /**
+     * Prompts the user for an input with the given {@link prompt}, and returns
+     * the entered value.
+     * 
+     * @param prompt First prompt as String
+     * @return Entered non-empty value
+     */
     protected String getUserInput(String prompt) {
         String input = "";
         try {

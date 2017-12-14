@@ -45,6 +45,13 @@ public class CommandContainer {
         commands.put("open video", new OpenVideoCommand(database, br, desktop));
     }
 
+    /**
+     * Searches {@link commands} for a Command that matches the String given as
+     * parameter.
+     * 
+     * @param command String base on which the command is selected
+     * @return Command to be executed based on parameter
+     */
     public Command getCommand(String command) {
         if (command.contains("search") || command.contains("browse")) {
             return getBrowseCommand(command);
