@@ -1,5 +1,6 @@
 package bookmarkdb;
 
+import bookmarkmodels.Book;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -189,5 +190,10 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
                     podcast.getTitle()
             );
         }
+    }
+
+    @Override
+    public int getRowId(Podcast podcast) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

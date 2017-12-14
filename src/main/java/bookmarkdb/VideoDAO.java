@@ -3,6 +3,7 @@
  */
 package bookmarkdb;
 
+import bookmarkmodels.Book;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -155,5 +156,10 @@ public class VideoDAO implements AbstractDAO<Video, Integer> {
     public List<Video> filterOnlyUnchecked(List<Video> videos) {
         return videos.stream().filter((video) -> (video.getChecked() == 0))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int getRowId(Video video) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

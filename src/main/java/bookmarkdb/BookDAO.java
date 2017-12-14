@@ -178,14 +178,15 @@ public class BookDAO implements AbstractDAO<Book, Integer> {
                 .collect(Collectors.toList());
     }
 
-	public int getRowId(Book book) throws SQLException {
-    	Map<String, List<String>> results = database.query("SELECT rowid FROM Book where title=? AND author=?",
-    			book.getTitle(), book.getAuthor());
-    	for (String col : results.keySet()) {
+    @Override
+    public int getRowId(Book book) throws SQLException {
+        Map<String, List<String>> results = database.query("SELECT rowid FROM Book where title=? AND author=?",
+                book.getTitle(), book.getAuthor());
+        for (String col : results.keySet()) {
             if (col.equals("rowid")) {
-            	return Integer.parseInt(results.get(col).get(0));
+                return Integer.parseInt(results.get(col).get(0));
             }
-    	}
-		return -1;
-	}
+        }
+        return -1;
+    }
 }

@@ -1,5 +1,6 @@
 package bookmarkdb;
 
+import bookmarkmodels.Book;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface AbstractDAO<T, K> {
     void markAsChecked(T t) throws SQLException;
 
     List<T> filterOnlyUnchecked(List<T> t);
+
+    int getRowId(T t) throws SQLException;
 }
