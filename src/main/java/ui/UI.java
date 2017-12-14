@@ -46,20 +46,15 @@ public class UI implements Runnable {
     public void run() {
 
         while (true) {
-            System.out.println("\nTo list all your bookmarks type \"browse\".\n"
-                    + "To add a book type \"add book\".\n"
-                    + "To edit a book type \"edit book\".\n"
-                    + "To delete a book type \"delete book\".\n"
-                    + "To mark book as read \"mark read\".\n"
-                    + "To add a podcast type \"add podcast\".\n"
-                    + "To edit a podcast type \"edit podcast\".\n"
-                    + "To delete a podcast type \"delete podcast\".\n"
-                    + "To mark podcast as listened \"mark listened\".\n"
-                    + "To add a video type \"add video\".\n"
-                    + "To edit a video type \"edit video\".\n"
-                    + "To delete a video type \"delete video\".\n"
-                    + "To open a video type \"open video\".\n"
-                    + "To mark video as watched \"mark watched\".\n"
+            System.out.println("\nThe bookmark types are book, podcast and video.\n"
+                    + "To list all your bookmarks type \"browse\".\n"
+                    + "To add a bookmak type \"add\".\n"
+                    + "To edit a bookmark type \"edit\".\n"
+                    + "To delete a bookmark type \"delete book\".\n"
+                    + "To mark bookmark as read \"mark read\".\n"
+                    + "To open a video in browser type \"open video\".\n"
+                    + "To search bookmarks with keywords type \"search\".\n"
+                    + "To search only for unread bookmarks type \"-u\" after your search or browse command, for example \"browse -u\".\n"
                     + "To quit the program type \"quit\".\n\n"
                     + "What to do?\n");
 
