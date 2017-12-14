@@ -5,6 +5,7 @@ import bookmarkdb.BookDAO;
 import bookmarkdb.BookTagDAO;
 import bookmarkdb.BookmarkTagDAO;
 import bookmarkdb.PodcastDAO;
+import bookmarkdb.PodcastTagDAO;
 import bookmarkdb.VideoDAO;
 import bookmarkdb.VideoTagDAO;
 import bookmarkmodels.Book;
@@ -27,6 +28,8 @@ public abstract class Command {
     protected BookmarkTagDAO tagDAO;
     protected BookTagDAO bookTagDAO;
     protected VideoTagDAO videoTagDAO;
+    protected PodcastTagDAO podTagDAO;
+
 
     public Command(AbstractDatabase database, BufferedReader buff) {
         this.br = buff;
@@ -35,6 +38,7 @@ public abstract class Command {
         this.videoDAO = new VideoDAO(database);
         this.tagDAO = new BookmarkTagDAO(database);
         this.bookTagDAO = new BookTagDAO(database, bookDAO, tagDAO);
+        this.podTagDAO = new PodcastTagDAO(database, podcastDAO, tagDAO);
     }
 
     /**

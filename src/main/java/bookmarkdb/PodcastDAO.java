@@ -194,6 +194,13 @@ public class PodcastDAO implements AbstractDAO<Podcast, Integer> {
 
     @Override
     public int getRowId(Podcast podcast) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, List<String>> results = database.query("SELECT rowid FROM Podcast where title=? AND author=?",
+                podcast.getTitle(), podcast.getAuthor());
+        for (String col : results.keySet()) {
+            if (col.equals("rowid")) {
+                return Integer.parseInt(results.get(col).get(0));
+            }
+        }
+        return -1;
     }
 }
