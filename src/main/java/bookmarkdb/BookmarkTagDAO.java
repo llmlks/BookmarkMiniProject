@@ -21,7 +21,7 @@ public class BookmarkTagDAO implements AbstractDAO<BookmarkTag, Integer> {
     }
 
     /**
-     * Adds a book to the database table 'Book'
+     * Adds a bookmark to the database table 'Tag'
      *
      * @param newTag to be added
      * @return
@@ -43,7 +43,9 @@ public class BookmarkTagDAO implements AbstractDAO<BookmarkTag, Integer> {
 	
 	@Override
 	 public BookmarkTag findOne(BookmarkTag tag) throws SQLException {
-		 Map<String, List<String>> results = database.query("SELECT name FROM Tag WHERE name=?", tag);
+		 Map<String, List<String>> results = database.query("SELECT name FROM Tag WHERE name=?", tag.getName());
+		 
+		 if (results.get("name") == null) return null;
 		 
 		 if (results.get("name").size() > 0 ) {
 			 BookmarkTag found = new BookmarkTag();
