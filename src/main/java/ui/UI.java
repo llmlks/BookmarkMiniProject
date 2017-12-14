@@ -1,6 +1,8 @@
 package ui;
 
 import bookmarkdb.BookDAO;
+import bookmarkdb.BookTagDAO;
+import bookmarkdb.BookmarkTagDAO;
 import bookmarkdb.Database;
 import bookmarkdb.PodcastDAO;
 import bookmarkdb.VideoDAO;
@@ -8,10 +10,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import bookmarkmodels.Book;
+import bookmarkmodels.BookmarkTag;
 import bookmarkmodels.Podcast;
 import bookmarkmodels.Video;
 import java.awt.Desktop;
@@ -24,6 +28,8 @@ public class UI implements Runnable {
     private BookDAO bookDAO;
     private PodcastDAO podcastDAO;
     private VideoDAO videoDAO;
+	private BookmarkTagDAO tagDAO;
+	private BookTagDAO booktagDAO;
     private Desktop desktop;
 
     public UI(Database database) {
@@ -31,6 +37,8 @@ public class UI implements Runnable {
         bookDAO = new BookDAO(database);
         podcastDAO = new PodcastDAO(database);
         videoDAO = new VideoDAO(database);
+        tagDAO = new BookmarkTagDAO(database);
+        booktagDAO = new BookTagDAO(database, bookDAO, tagDAO);
         desktop = Desktop.getDesktop();
     }
 
@@ -39,6 +47,8 @@ public class UI implements Runnable {
         bookDAO = new BookDAO(database);
         podcastDAO = new PodcastDAO(database);
         videoDAO = new VideoDAO(database);
+        tagDAO = new BookmarkTagDAO(database);
+        booktagDAO = new BookTagDAO(database, bookDAO, tagDAO);
         desktop = dt;
     }
 
@@ -117,7 +127,8 @@ public class UI implements Runnable {
                     ? bookDAO.findAll()
                     : bookDAO.findAllWithKeyword(keyword);
             for (int i = 0; i < books.size(); i++) {
-                System.out.println((i + 1) + " " + books.get(i));
+                System.out.print((i + 1) + " " + books.get(i));         
+                System.out.println(", tags: " + booktagDAO.printTags(booktagDAO.findAll(books.get(i))));
             }
             return books;
         } catch (SQLException ex) {
@@ -185,10 +196,20 @@ public class UI implements Runnable {
         }
         System.out.println("ISBN:");
         ISBN = br.readLine();
+        
+        System.out.println("Tags: (separate with empty space)");
+		String[] tags = br.readLine().split(" ");
+		
         try {
-            if (bookDAO.create(new Book(title, author, ISBN)) == null) {
+        	Book newBook = new Book(title, author, ISBN);
+            if (bookDAO.create(newBook) == null) {
                 System.out.println("\nBook has already been added in the library");
             } else {
+				for (String tag : tags) {
+					BookmarkTag newTag = new BookmarkTag(tag);
+					tagDAO.create(newTag);
+					booktagDAO.create(newBook, newTag);
+				}
                 System.out.println("\nBook added!");
             }
         } catch (SQLException ex) {

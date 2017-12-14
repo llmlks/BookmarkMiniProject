@@ -163,6 +163,16 @@ public class Database implements AbstractDatabase {
                 + " title TEXT,"
                 + " checked INT NOT NULL DEFAULT 0)"
         );
+        
+        list.add(""
+        		+ "CREATE TABLE IF NOT EXISTS Tag"
+        		+ "(name TEXT UNIQUE NOT NULL)");
+        
+        list.add(""
+        		+ "CREATE TABLE IF NOT EXISTS BookTag"
+        		+ "(tag INT(3) NOT NULL,"
+        		+ " book INT(3) NOT NULL,"
+        		+ " FOREIGN KEY (tag) REFERENCES Tag, " + "FOREIGN KEY (book) REFERENCES Book)");
 
         return list;
     }

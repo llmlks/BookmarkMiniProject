@@ -6,6 +6,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import bookmarkdb.BookDAO;
+import bookmarkdb.BookTagDAO;
+import bookmarkdb.BookmarkTagDAO;
 import bookmarkdb.Connector;
 import bookmarkdb.Database;
 import bookmarkdb.PodcastDAO;
@@ -43,6 +45,8 @@ public class Stepdefs {
     BookDAO bookDao;
     PodcastDAO podcastDao;
     VideoDAO videoDao;
+	BookmarkTagDAO tagDAO;
+	BookTagDAO booktagDAO;
     ByteArrayInputStream inputStream;
     ByteArrayOutputStream outputStream;
     PrintStream standardOut;
@@ -69,6 +73,8 @@ public class Stepdefs {
         bookDao = new BookDAO(database);
         podcastDao = new PodcastDAO(database);
         videoDao = new VideoDAO(database);
+    	tagDAO = new BookmarkTagDAO(database);
+    	booktagDAO = new BookTagDAO(database, bookDao, tagDAO);
         desktop = mock(Desktop.class);
     }
 
@@ -94,6 +100,7 @@ public class Stepdefs {
         addInputLine(title);
         addInputLine(author);
         addInputLine(ISBN);
+        addInputLine("");
     }
     
     @Given("^podcast with name \"([^\"]*)\" and author \"([^\"]*)\" and title \"([^\"]*)\" and URL \"([^\"]*)\" has been added$")
@@ -115,6 +122,11 @@ public class Stepdefs {
         addInputLine("add video");
         addInputLine(url);
         addInputLine(name);
+    }
+    
+    @When("^tag \"([^\"]*)\" is entered$")
+    public void tag_is_entered(String tag) throws Throwable {
+        addInputLine(tag);
     }
     
     @When("^author \"([^\"]*)\" is entered$")

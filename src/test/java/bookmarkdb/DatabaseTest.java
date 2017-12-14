@@ -82,7 +82,7 @@ public class DatabaseTest {
         database.init();
         String output = outContent.toString();
 
-        verify(statement, times(3)).executeUpdate(any(String.class));
+        verify(statement, times(5)).executeUpdate(any(String.class));
         assertTrue(output.contains(CREATE_STMT));
     }
 
