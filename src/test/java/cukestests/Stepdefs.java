@@ -110,6 +110,7 @@ public class Stepdefs {
         addInputLine(author);
         addInputLine(title);
         addInputLine(ISBN);
+        addInputLine("");
     }
 
     @When("^title \"([^\"]*)\" is entered$")
@@ -122,6 +123,7 @@ public class Stepdefs {
         addInputLine("add video");
         addInputLine(url);
         addInputLine(name);
+        addInputLine("");
     }
     
     @When("^tag \"([^\"]*)\" is entered$")

@@ -27,7 +27,7 @@ public class PodcastTagDAO {
     }
 
     public void create(Podcast podcast, BookmarkTag tag) throws SQLException {
-        database.update("INSERT INTO PodcastTag(tag, book) VALUES (?,?)",
+        database.update("INSERT INTO PodcastTag(tag, podcast) VALUES (?,?)",
                 bookmarktagDAO.getRowId(tag), podcastDAO.getRowId(podcast));
     }
 
