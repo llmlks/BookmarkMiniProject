@@ -358,6 +358,14 @@ public class Stepdefs {
         assertTrue(!output.contains("Book:"));
     }
     
+    @Then("^empty list of videos is printed$")
+    public void empty_list_of_videos_is_printed() throws Throwable {
+        runApplication();
+        
+        String output = outputStream.toString();
+        assertTrue(!output.contains("Video:"));
+    }
+    
     @Then("^book with title \"([^\"]*)\" and author \"([^\"]*)\" and ISBN \"([^\"]*)\" is printed$")
     public void book_is_printed(String title, String author, String ISBN) throws Throwable {
         Book book = new Book(title, author, ISBN);

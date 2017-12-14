@@ -41,7 +41,6 @@ public class UI implements Runnable {
                     + "To quit the program enter \"quit\".\n\n"
                     + "Available types: book, podcast, video\n\n"
                     + "What to do?\n");
-
             String command;
             try {
                 command = br.readLine();
